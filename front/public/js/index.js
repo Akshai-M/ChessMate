@@ -54,7 +54,14 @@ function updateStatus() {
     
 
     
-    
+    else {
+        status = moveColor + ' to move'
+
+        
+        if (game.in_check()) {
+            status += ', ' + moveColor + ' is in check'
+        }
+    }
 
     $status.html(status)
     $pgn.html(game.pgn())
