@@ -46,3 +46,17 @@ socket.on('newMove', function (move) {
 function onSnapEnd() {
     board.position(game.fen())
 }
+
+function updateStatus() {
+    var status = ''
+
+    var moveColor = 'White'
+    
+
+    
+    
+
+    $status.html(status)
+    $pgn.html(game.pgn())
+}
+
