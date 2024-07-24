@@ -4,6 +4,11 @@ const config = require('../config');
 const myIo = require('./sockets/io'),
       routes = require('./routes/routes');
 
+const app = express(),
+      server = http.Server(app),
+      io = socket(server);
+
+
 
 console.log(`http://localhost:${config.port}`);
 
