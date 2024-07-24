@@ -1,3 +1,8 @@
+const http = require('http'),
+      path = require('path'),
+      express = require('express'),
+      handlebars = require('express-handlebars'),
+      socket = require('socket.io');
 
 const config = require('../config');
 
@@ -7,8 +12,6 @@ const myIo = require('./sockets/io'),
 const app = express(),
       server = http.Server(app),
       io = socket(server);
-
-
 
 console.log(`http://localhost:${config.port}`);
 
