@@ -27,3 +27,9 @@ const Handlebars = handlebars.create({
   defaultLayout: false,
   helpers: {}
 });
+app.engine('html', Handlebars.engine);
+app.set('view engine', 'html');
+app.set('views', path.join(__dirname, '..', 'front', 'views'));
+app.use('/public', express.static(path.join(__dirname, '..', 'front', 'public')));
+
+routes(app);
