@@ -13,6 +13,12 @@ const app = express(),
       server = http.Server(app),
       io = socket(server);
 
+server.listen(config.port);
+
+games = {};
+
+myIo(io);
+
 console.log(`http://localhost:${config.port}`);
 
 const Handlebars = handlebars.create({
