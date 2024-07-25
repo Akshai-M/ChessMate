@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+<head>
+    {{> head}}
+    
+</head>
+
+
+
+<body>
+    <h1>Welcome to ChessMate!!</h1>
+    <h2>Game code</h2>
+    <input type="text" id="codeInput" placeholder="Enter the code here">
+    <br>
+    <button id="createGame">Create game</button>
+    <button id="joinGame">Join game</button>
+    <div id="errorMessage" style="color: red;"></div>
+
+    <script>
+        function validateInput() {
+            const codeInput = document.getElementById('codeInput').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (!codeInput) {
+                errorMessage.textContent = 'Please enter a game code';
+                return false;
+            } else {
+                errorMessage.textContent = ''; // Clear any previous error message
+                return true;
+            }
+        }
+
+        
+    </script>
+</body>
+
+
+</html>
