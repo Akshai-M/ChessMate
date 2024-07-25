@@ -1,4 +1,4 @@
-module.exports = app => {
+export default app => {
 
     app.get('/', (req, res) => {
         res.render('index');
