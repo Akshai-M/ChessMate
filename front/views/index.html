@@ -35,6 +35,18 @@
             }
         }
 
+        document.getElementById('createGame').addEventListener('click', function () {
+            if (validateInput()) {
+                window.location.replace('/white?code=' + document.getElementById('codeInput').value);
+            }
+        });
+
+        document.getElementById('joinGame').addEventListener('click', function () {
+            if (validateInput()) {
+                window.location.replace('/black?code=' + document.getElementById('codeInput').value);
+            }
+        });
+
         
     </script>
 </body>
