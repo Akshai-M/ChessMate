@@ -10,7 +10,17 @@ module.exports = io => {
             io.to(currentCode).emit('newMove', move);
         });
         
-        
+        socket.on('joinGame', function(data) {
+
+            currentCode = data.code;
+            socket.join(currentCode);
+            if (!games[currentCode]) {
+                games[currentCode] = true;
+                return;
+            }
+            
+            io.to(currentCode).emit('startGame');
+        });
 
         socket.on('disconnect', function() {
             console.log('socket disconnected');
