@@ -101,3 +101,18 @@ if (playerColor == 'black') {
 updateStatus()
 
 var urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('code')) {
+    socket.emit('joinGame', {
+        code: urlParams.get('code')
+    });
+}
+
+socket.on('startGame', function () {
+    gameHasStarted = true;
+    updateStatus()
+});
+
+socket.on('gameOverDisconnect', function () {
+    gameOver = true;
+    updateStatus()
+});
