@@ -51,7 +51,25 @@ function updateStatus() {
     var status = ''
 
     var moveColor = 'White'
-    
+    if (game.turn() === 'b') {
+        moveColor = 'Black'
+    }
+
+    if (game.in_checkmate()) {
+        status = 'Game over, ' + moveColor + ' is in checkmate.'
+    }
+
+    else if (game.in_draw()) {
+        status = 'Game over, drawn position'
+    }
+
+    else if (gameOver) {
+        status = 'Opponent disconnected, you win!'
+    }
+
+    else if (!gameHasStarted) {
+        status = 'Waiting for black to join'
+    }
 
     
     else {
