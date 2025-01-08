@@ -85,3 +85,12 @@ function updateStatus() {
     $pgn.html(game.pgn())
 }
 
+var config = {
+    draggable: true,
+    position: 'start',
+    onDragStart: onDragStart,
+    onDrop: onDrop,
+    onSnapEnd: onSnapEnd,
+    pieceTheme: '/public/img/chesspieces/wikipedia/{piece}.png'
+}
+board = Chessboard('myBoard', config)
