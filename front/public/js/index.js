@@ -94,3 +94,10 @@ var config = {
     pieceTheme: '/public/img/chesspieces/wikipedia/{piece}.png'
 }
 board = Chessboard('myBoard', config)
+if (playerColor == 'black') {
+    board.flip();
+}
+
+updateStatus()
+
+var urlParams = new URLSearchParams(window.location.search);
