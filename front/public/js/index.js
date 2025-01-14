@@ -19,3 +19,20 @@ function onDragStart(source, piece, position, orientation) {
     }
 }
 
+function onDrop(source, target) {
+    let theMove = {
+        from: source,
+        to: target,
+        promotion: 'q' 
+    };
+    
+    var move = game.move(theMove);
+
+
+  
+    if (move === null) return 'snapback'
+
+    socket.emit('move', theMove);
+
+    updateStatus()
+}
