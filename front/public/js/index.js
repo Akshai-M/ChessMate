@@ -36,3 +36,9 @@ function onDrop(source, target) {
 
     updateStatus()
 }
+
+socket.on('newMove', function (move) {
+    game.move(move);
+    board.position(game.fen());
+    updateStatus();
+});
