@@ -42,3 +42,7 @@ socket.on('newMove', function (move) {
     board.position(game.fen());
     updateStatus();
 });
+
+function onSnapEnd() {
+    board.position(game.fen())
+}
