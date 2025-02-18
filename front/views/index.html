@@ -1,116 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap"
-    rel="stylesheet">
 
 <head>
     {{> head}}
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>  </head>
 
-        body {
-            
-            background-color: #1f1f1f;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding-top: 50px;
-        }
-
-
-        h2 {
-            margin-bottom: 20px;
-            font-family: "Mukta", sans-serif;
-            font-weight: 400;
-            font-style: normal;
-        }
-
-        input[type="text"] {
-            padding: 10px;
-            font-family: monospace;
-            margin-bottom: 20px;
-            border: 2px solid hsl(0, 0%, 80%);
-            border-radius: 5px;
-            width: 200px;
-            background-color: #000000;
-            color: white;
-        }
-
-        h1 {
-            font-family: Georgia, 'Times New Roman', Times, serif;
-        }
-
-
-        button {
-            font-family: monospace;
-            padding: 10px 20px;
-            margin: 5px;
-            background-color: #000000;
-            color: white;
-            border: 2px solid white;
-            border-radius: 5px;
-            cursor: pointer;
-            box-shadow: 1px 1px 10px 2px rgba(255, 255, 255, 0.3);
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #000000;
-            box-shadow: 1px 1px 10px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        #errorMessage {
-            color: red;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-
-
-
-<body>
-    <h1>Welcome to ChessMate!!</h1>
-    <h2>Game code</h2>
-    <input type="text" id="codeInput" placeholder="Enter the code here">
+<body class="bg-[#1f1f1f] text-white font-arial text-center pt-12">
+    <h1 class="font-georgia text-4xl mb-4">Welcome to ChessMate!!</h1>
+    <h2 class="font-mukta font-normal text-2xl mb-8">Game code</h2>
+    <input type="text" id="codeInput" placeholder="Enter the code here"
+        class="font-mono px-4 py-2 mb-8 border-2 border-gray-600 rounded-md w-52 bg-black text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
     <br>
-    <button id="createGame">Create game</button>
-    <button id="joinGame">Join game</button>
-    <div id="errorMessage" style="color: red;"></div>
+    <img src="https://png.pngtree.com/thumb_back/fh260/background/20241130/pngtree-white-chess-king-piece-on-a-chessboard-with-smoke-in-the-image_16712713.jpg" alt="">
+    <button id="createGame"
+        class="font-mono px-6 py-2 mx-2 bg-black text-white border-2 border-white rounded-md cursor-pointer shadow-lg transition duration-300 ease-in-out hover:bg-black hover:shadow-none">
+        Create game
+    </button>
+    <button id="joinGame"
+        class="font-mono px-6 py-2 mx-2 bg-black text-white border-2 border-white rounded-md cursor-pointer shadow-lg transition duration-300 ease-in-out hover:bg-black hover:shadow-none">
+        Join game
+    </button>
+    <div id="errorMessage" class="text-red-500 mt-8"></div>
 
     <script>
         function validateInput() {
-            const codeInput = document.getElementById('codeInput').value;
-            const errorMessage = document.getElementById('errorMessage');
-
-            if (!codeInput) {
-                errorMessage.textContent = 'Please enter a game code';
-                return false;
-            } else {
-                errorMessage.textContent = ''; // Clear any previous error message
-                return true;
-            }
+          const codeInput = document.getElementById("codeInput").value;
+          const errorMessage = document.getElementById("errorMessage");
+  
+          if (!codeInput) {
+            errorMessage.textContent = "Please enter a game code";
+            return false;
+          } else {
+            errorMessage.textContent = "";
+            return true;
+          }
         }
-
-        document.getElementById('createGame').addEventListener('click', function () {
+  
+        document
+          .getElementById("createGame")
+          .addEventListener("click", function () {
             if (validateInput()) {
-                window.location.replace('/white?code=' + document.getElementById('codeInput').value);
+              window.location.replace(
+                "/white?code=" + document.getElementById("codeInput").value
+              );
             }
-        });
-
-        document.getElementById('joinGame').addEventListener('click', function () {
+          });
+  
+        document
+          .getElementById("joinGame")
+          .addEventListener("click", function () {
             if (validateInput()) {
-                window.location.replace('/black?code=' + document.getElementById('codeInput').value);
+              window.location.replace(
+                "/black?code=" + document.getElementById("codeInput").value
+              );
             }
-        });
-
+          });
+  
         const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('error') === 'invalidCode') {
-            document.getElementById('errorMessage').textContent = 'Invalid invite code';
+        if (urlParams.get("error") === "invalidCode") {
+          document.getElementById("errorMessage").textContent =
+            "Invalid invite code";
         }
-    </script>
+      </script>
 </body>
-
 
 </html>
