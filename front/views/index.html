@@ -26,7 +26,20 @@
   
 
 
-   
+    <section id="game-setup" class="hidden bg-[#1f1f1f] text-white text-center pt-12 min-h-screen">
+
+       
+        <input type="text" id="codeInput" placeholder="Enter the code here"
+            class="px-4 py-2 mb-8 border-2 border-gray-600 rounded-md w-52 bg-black text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <br>
+        <button id="createGame" class="px-6 py-2 mx-2 bg-black text-white border-2 border-white rounded-md shadow-lg transition hover:shadow-none">
+            Create game
+        </button>
+        <button id="joinGame" class="px-6 py-2 mx-2 bg-black text-white border-2 border-white rounded-md shadow-lg transition hover:shadow-none">
+            Join game
+        </button>
+        <div id="errorMessage" class="text-red-500 mt-8"></div>
+    </section>
 
    
     <footer class="bg-blue-900 text-white text-center py-3 mt-6 shadow-md">
