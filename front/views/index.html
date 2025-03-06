@@ -34,6 +34,17 @@
     </footer>
 
     <script>
+   
+        document.getElementById("nav-toggle").addEventListener("click", function () {
+            document.getElementById("mobile-nav").classList.toggle("hidden");
+        });
+
+        document.getElementById("gameButton").addEventListener("click", function () {
+            document.getElementById("homepage-content").classList.add("hidden");
+            document.getElementById("game-setup").classList.remove("hidden");
+        });
+
+    
         function validateInput() {
             const codeInput = document.getElementById("codeInput").value;
             const errorMessage = document.getElementById("errorMessage");
