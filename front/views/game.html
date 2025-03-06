@@ -135,7 +135,20 @@
 </head>
 
 <body>
-   
+    <div class="container">
+        <div id="myBoard"></div>
+        <div class="status-container">
+            <div class="status">
+                <label>Status:</label>
+                <div id="status"></div>
+            </div>
+            <div class="status">
+                <label>Moves:</label>
+                <div id="pgn"></div>
+                <button class="copy-btn" onclick="copyMoves()">Copy</button>
+            </div>
+        </div>
+    </div>
 
     <script>
         let playerColor = '{{color}}';
