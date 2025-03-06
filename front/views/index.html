@@ -2,71 +2,65 @@
 <html lang="en">
 
 <head>
-    {{> head}}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>  </head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Application</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
 
-<body class="bg-[#1f1f1f] text-white font-arial text-center pt-12">
-    <h1 class="font-georgia text-4xl mb-4">Welcome to ChessMate!!</h1>
-    <h2 class="font-mukta font-normal text-2xl mb-8">Game code</h2>
-    <input type="text" id="codeInput" placeholder="Enter the code here"
-        class="font-mono px-4 py-2 mb-8 border-2 border-gray-600 rounded-md w-52 bg-black text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-    <br>
-    <button id="createGame"
-        class="font-mono px-6 py-2 mx-2 bg-black text-white border-2 border-white rounded-md cursor-pointer shadow-lg transition duration-300 ease-in-out hover:bg-black hover:shadow-none">
-        Create game
-    </button>
-    <button id="joinGame"
-        class="font-mono px-6 py-2 mx-2 bg-black text-white border-2 border-white rounded-md cursor-pointer shadow-lg transition duration-300 ease-in-out hover:bg-black hover:shadow-none">
-        Join game
-    </button>
-    <div id="errorMessage" class="text-red-500 mt-8"></div>
+<body class="bg-gray-100">
+
+   
+    <header class="bg-blue-900 text-white p-4 flex justify-between items-center shadow-md">
+        <div class="text-2xl font-bold">♟️ ChessMate</div>
+        
+        <button id="nav-toggle" class="md:hidden text-white text-2xl">
+            <i class="fa fa-bars"></i>
+        </button>
+    </header>
+
+
+  
+
+
+   
+
+   
+    <footer class="bg-blue-900 text-white text-center py-3 mt-6 shadow-md">
+        <p>&copy; 2025 Chess Application | All Rights Reserved</p>
+    </footer>
 
     <script>
         function validateInput() {
-          const codeInput = document.getElementById("codeInput").value;
-          const errorMessage = document.getElementById("errorMessage");
-  
-          if (!codeInput) {
-            errorMessage.textContent = "Please enter a game code";
-            return false;
-          } else {
-            errorMessage.textContent = "";
-            return true;
-          }
-        }
-  
-        document
-          .getElementById("createGame")
-          .addEventListener("click", function () {
-            if (validateInput()) {
-              window.location.replace(
-                "/white?code=" + document.getElementById("codeInput").value
-              );
+            const codeInput = document.getElementById("codeInput").value;
+            const errorMessage = document.getElementById("errorMessage");
+
+            if (!codeInput) {
+                errorMessage.textContent = "Please enter a game code";
+                return false;
+            } else {
+                errorMessage.textContent = "";
+                return true;
             }
-          });
-  
-        document
-          .getElementById("joinGame")
-          .addEventListener("click", function () {
-            if (validateInput()) {
-              window.location.replace(
-                "/black?code=" + document.getElementById("codeInput").value
-              );
-            }
-          });
-  
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get("error") === "invalidCode") {
-          document.getElementById("errorMessage").textContent =
-            "Invalid invite code";
         }
-      </script>
+
+        
+        document.getElementById("createGame").addEventListener("click", function () {
+            if (validateInput()) {
+                window.location.replace("/white?code=" + document.getElementById("codeInput").value);
+            }
+        });
+
+        document.getElementById("joinGame").addEventListener("click", function () {
+            if (validateInput()) {
+                window.location.replace("/black?code=" + document.getElementById("codeInput").value);
+            }
+        });
+    </script>
+
 </body>
 
 </html>
