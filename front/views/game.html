@@ -153,6 +153,15 @@
     <script>
         let playerColor = '{{color}}';
         console.log('Playing as ' + playerColor);
+
+        function copyMoves() {
+            const movesText = document.getElementById("pgn").innerText;
+            navigator.clipboard.writeText(movesText).then(() => {
+                alert("Moves copied to clipboard!");
+            }).catch(err => {
+                console.error("Error copying text: ", err);
+            });
+        }
     </script>
     <script src="/public/js/index.js"></script>
 </body>
