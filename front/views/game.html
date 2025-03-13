@@ -1,135 +1,112 @@
-<html>
-
 <head>
     <title>Chess Board</title>
     {{> head}}
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-        body {
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
             background-color: #1f1f1f;
+            color: white;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            font-family: 'Poppins', sans-serif;
-            color: white;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
-            overflow: hidden; /* Prevent scrollbars */
         }
 
         .container {
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: center;
             align-items: center;
             width: 100%;
-            max-width: 1200px;
-            box-sizing: border-box;
+            padding: 1rem;
+            gap: 1.5rem;
         }
 
         #myBoard {
-            width: 700px;
+            width: 600px;
             max-width: 90vw;
+            aspect-ratio: 1 / 1; /* Maintain square shape */
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
             background-color: #2a2a2a;
-            padding: 20px;
-            transition: box-shadow 0.3s ease;
+            padding: 15px;
             border: 1px solid #333;
-            box-sizing: border-box;
-        }
-
-        #myBoard:hover {
-            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.3);
         }
 
         .status-container {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            width: 100%;
-            max-width: 500px;
-            box-sizing: border-box;
+            gap: 1rem;
+            width: 320px;
+            max-width: 90vw;
         }
 
-        .status {
+        
+
+        .status-header {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            padding: 15px;
-            background-color: #292929;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-            border: 1px solid #333;
-            margin: 10px 0;
-            box-sizing: border-box;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
         }
 
-        label {
-            font-weight: 500;
-            font-size: 18px;
-            margin-right: 10px;
+        .status-indicator {
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
         }
 
-        #status,
-        #pgn {
-            font-size: 16px;
-            font-weight: 400;
-            padding: 8px;
-            border-radius: 4px;
-            background-color: #1f1f1f;
-            border: 1px solid #333;
-            flex-grow: 1;
-            text-align: center;
-            box-sizing: border-box;
-        }
 
         #status {
-            color: rgb(255, 165, 0);
+            color: #D1D5DB;
+            font-weight: 500;
         }
 
-        #pgn {
-            color: #0fccd3;
-            word-wrap: break-word;
-        }
+        
 
         .copy-btn {
-            background-color: #0fccd3;
-            color: #1f1f1f;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: #2563EB;
+            color: white;
             border: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
+            border-radius: 0.5rem;
             font-weight: 500;
-            margin-left: 10px;
-            transition: background 0.3s ease;
+            cursor: pointer;
+            transition: background-color 0.2s;
         }
 
         .copy-btn:hover {
-            background-color: #0bb3bd;
+            background-color: #1D4ED8;
         }
 
-        @media (min-width: 768px) {
+      
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
             .container {
-                flex-direction: row;
-                justify-content: space-between;
-            }
-
-            .status-container {
-                width: auto;
-                max-width: 300px;
-            }
-
-            .status {
                 flex-direction: column;
-                align-items: center;
-                text-align: center;
+                gap: 1rem;
+                width: 100%;
             }
+
+            
+
+           
         }
     </style>
 </head>
@@ -139,14 +116,14 @@
         <div id="myBoard"></div>
         <div class="status-container">
             <div class="status">
-                <label>Status:</label>
+                <div class="status-header">
+                    <div class="status-indicator green"></div>
+                    <h2 class="status-title">Status</h2>
+                </div>
                 <div id="status"></div>
             </div>
-            <div class="status">
-                <label>Moves:</label>
-                <div id="pgn"></div>
-                <button class="copy-btn" onclick="copyMoves()">Copy</button>
-            </div>
+
+           
         </div>
     </div>
 
@@ -165,5 +142,3 @@
     </script>
     <script src="/public/js/index.js"></script>
 </body>
-
-</html>
