@@ -4,8 +4,7 @@ A real-time multiplayer chess game built with HTML, CSS, JavaScript, and backend
 
 ## Live Demo
 
-Check out the live version here:  
-[https://chessmate-hn65.onrender.com](https://chessmate-hn65.onrender.com)
+Check out the live version here:  [Link](https://chessmate-hn65.onrender.com)
 
 ## Features
 
