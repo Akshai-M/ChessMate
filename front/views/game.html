@@ -1,190 +1,303 @@
 <head>
-    <title>Chess Board</title>
-    {{> head}}
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+  <title>Chess Board</title>
+  {{> head}}
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+  />
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap");
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        html, body {
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-            font-family: 'Poppins', sans-serif;
-            background-color: #1f1f1f;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
+    :root {
+      --bg: #0e0e10;
+      --surface: #17171a;
+      --surface-2: #1f1f24;
+      --gold: #d4af37;
+      --gold-soft: #e8c870;
+      --line: #2a2a31;
+      --muted: #9a9aa3;
+    }
 
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            padding: 1rem;
-            gap: 1.5rem;
-        }
+    html,
+    body {
+      width: 100vw;
+      min-height: 100vh;
+      font-family: "Inter", sans-serif;
+      background:
+        radial-gradient(
+          900px 500px at 80% 10%,
+          rgba(212, 175, 55, 0.1),
+          transparent 60%
+        ),
+        radial-gradient(
+          700px 400px at 10% 90%,
+          rgba(212, 175, 55, 0.06),
+          transparent 60%
+        ),
+        #0e0e10;
+      color: #f5f5f7;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
 
-        #myBoard {
-            width: 600px;
-            max-width: 90vw;
-            aspect-ratio: 1 / 1; /* Maintain square shape */
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-            background-color: #2a2a2a;
-            padding: 15px;
-            border: 1px solid #333;
-        }
+    .topbar {
+      width: 100%;
+      max-width: 1100px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      padding: 0 0.5rem;
+    }
+    .brand {
+      font-family: "Playfair Display", serif;
+      color: var(--gold);
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+    .home-cta {
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(180deg, var(--gold-soft), var(--gold));
+      color: #1a1a1a;
+      font-weight: 600;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.6);
+      transition: transform 0.15s ease;
+    }
+    .home-cta:hover {
+      transform: translateY(-2px);
+    }
+    .home-cta.show {
+      display: inline-flex;
+    }
 
-        .status-container {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            width: 320px;
-            max-width: 90vw;
-        }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100%;
+      max-width: 1100px;
+      gap: 1.5rem;
+    }
 
-        .status {
-            background-color: rgba(31, 41, 55, 0.5);
-            border-radius: 0.75rem;
-            padding: 1rem;
-        }
+    #myBoard {
+      width: 600px;
+      max-width: 90vw;
+      aspect-ratio: 1 / 1;
+      border-radius: 14px;
+      box-shadow:
+        0 30px 80px -20px rgba(0, 0, 0, 0.7),
+        0 0 0 1px var(--line);
+      background-color: var(--surface);
+      padding: 18px;
+      border: 1px solid var(--gold);
+      border-color: rgba(212, 175, 55, 0.35);
+    }
 
-        .status-header {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
+    .status-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 340px;
+      max-width: 90vw;
+    }
 
-        .status-indicator {
-            width: 0.75rem;
-            height: 0.75rem;
-            border-radius: 50%;
-        }
+    .status {
+      background-color: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1.1rem 1.2rem;
+    }
 
-        .status-indicator.green { background-color: #10B981; }
-        .status-indicator.blue { background-color: #3B82F6; }
+    .status-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.6rem;
+    }
 
-        .status-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
+    .status-indicator {
+      width: 0.7rem;
+      height: 0.7rem;
+      border-radius: 50%;
+      box-shadow: 0 0 12px currentColor;
+    }
+    .status-indicator.green {
+      background-color: #10b981;
+      color: #10b981;
+    }
+    .status-indicator.blue {
+      background-color: var(--gold);
+      color: var(--gold);
+    }
 
-        #status {
-            color: #D1D5DB;
-            font-weight: 500;
-        }
+    .status-title {
+      font-family: "Playfair Display", serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #f5f5f7;
+    }
 
-        .moves-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .player-tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      margin-bottom: 0.35rem;
+    }
 
-        .copy-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            margin-bottom: 15px;
-            background-color: #2563EB;
-            color: white;
-            border: none;
-            border-radius: 0.5rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
+    #status {
+      color: #d1d5db;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
 
-        .copy-btn:hover {
-            background-color: #1D4ED8;
-        }
+    .moves-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        #pgn {
-            color: #D1D5DB;
-            font-family: monospace;
-            font-size: 0.875rem;
-            background-color: rgba(17, 24, 39, 0.5);
-            padding: 1rem;
-            border-radius: 0.5rem;
-            min-height: 80px;
-            max-height: 180px;
-            overflow-y: auto;
-        }
+    .copy-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.4rem 0.8rem;
+      background-color: var(--surface-2);
+      color: var(--gold);
+      border: 1px solid var(--line);
+      border-radius: 0.5rem;
+      font-weight: 500;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .copy-btn:hover {
+      border-color: var(--gold);
+    }
 
-        /* Mobile Responsive Styles */
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-                gap: 1rem;
-                width: 100%;
-            }
+    #pgn {
+      color: #d1d5db;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.85rem;
+      background-color: #0a0a0c;
+      border: 1px solid var(--line);
+      padding: 1rem;
+      border-radius: 0.6rem;
+      min-height: 90px;
+      max-height: 200px;
+      overflow-y: auto;
+      line-height: 1.6;
+    }
 
-            #myBoard {
-                width: 85vw;
-                aspect-ratio: 1 / 1;
-            }
-
-            .status-container {
-                width: 85vw;
-            }
-        }
-    </style>
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      #myBoard {
+        width: 90vw;
+      }
+      .status-container {
+        width: 90vw;
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <div class="container">
-        <div id="myBoard"></div>
-        <div class="status-container">
-            <div class="status">
-                <div class="status-header">
-                    <div class="status-indicator green"></div>
-                    <h2 class="status-title">Status</h2>
-                </div>
-                <div id="status"></div>
-            </div>
+  <div class="topbar">
+    <div class="brand">♟ ChessMate</div>
+    <a id="homeCta" class="home-cta" href="/">
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+        <polyline points="9 22 9 12 15 12 15 22" />
+      </svg>
+      Home
+    </a>
+  </div>
 
-            <div class="status">
-                <div class="moves-header">
-                    <div class="status-header">
-                        <div class="status-indicator blue"></div>
-                        <h2 class="status-title">Moves</h2>
-                    </div>
-                    <button class="copy-btn" onclick="copyMoves()">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                        </svg>
-                        Copy
-                    </button>
-                </div>
-                <div id="pgn"></div>
-            </div>
+  <div class="container">
+    <div id="myBoard"></div>
+    <div class="status-container">
+      <div class="status">
+        <div class="player-tag">You are playing</div>
+        <div class="status-header">
+          <div class="status-indicator green"></div>
+          <h2 class="status-title" id="playerColorLabel">Status</h2>
         </div>
+        <div id="status"></div>
+      </div>
+
+      <div class="status">
+        <div class="moves-header">
+          <div class="status-header" style="margin-bottom: 0">
+            <div class="status-indicator blue"></div>
+            <h2 class="status-title">Moves</h2>
+          </div>
+          <button class="copy-btn" onclick="copyMoves()">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path
+                d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+              ></path>
+            </svg>
+            Copy
+          </button>
+        </div>
+        <div id="pgn" style="margin-top: 0.8rem"></div>
+      </div>
     </div>
+  </div>
 
-    <script>
-        let playerColor = '{{color}}';
-        console.log('Playing as ' + playerColor);
+  <script>
+    let playerColor = "{{color}}";
+    console.log("Playing as " + playerColor);
 
-        function copyMoves() {
-            const movesText = document.getElementById("pgn").innerText;
-            navigator.clipboard.writeText(movesText).then(() => {
-                alert("Moves copied to clipboard!");
-            }).catch(err => {
-                console.error("Error copying text: ", err);
-            });
-        }
-    </script>
-    <script src="/public/js/index.js"></script>
+    function copyMoves() {
+      const movesText = document.getElementById("pgn").innerText;
+      navigator.clipboard
+        .writeText(movesText)
+        .then(() => {
+          alert("Moves copied to clipboard!");
+        })
+        .catch((err) => {
+          console.error("Error copying text: ", err);
+        });
+    }
+  </script>
+  <script src="/public/js/index.js"></script>
 </body>
