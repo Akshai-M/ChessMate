@@ -1,127 +1,356 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chess Application</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-</head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0e0e10;
+        --surface: #17171a;
+        --surface-2: #1f1f24;
+        --gold: #d4af37;
+        --gold-soft: #e8c870;
+        --line: #2a2a31;
+        --muted: #9a9aa3;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--bg);
+        color: #f5f5f7;
+        margin: 0;
+      }
+      h1,
+      h2,
+      h3,
+      .display {
+        font-family: "Playfair Display", serif;
+        letter-spacing: -0.01em;
+      }
 
-<body class="bg-gray-100">
+      .nav {
+        background: rgba(14, 14, 16, 0.85);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--line);
+        position: sticky;
+        top: 0;
+        z-index: 50;
+      }
+      .brand {
+        color: var(--gold);
+      }
 
-   
-    <header class="bg-blue-900 text-white p-4 flex justify-between items-center shadow-md">
-        <div class="text-2xl font-bold">♟️ ChessMate</div>
-        
-        <button id="nav-toggle" class="md:hidden text-white text-2xl">
-            <i class="fa fa-bars"></i>
+      .hero {
+        position: relative;
+        min-height: calc(100vh - 64px);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background:
+          radial-gradient(
+            1000px 500px at 70% 20%,
+            rgba(212, 175, 55, 0.18),
+            transparent 60%
+          ),
+          radial-gradient(
+            800px 400px at 20% 80%,
+            rgba(212, 175, 55, 0.08),
+            transparent 60%
+          ),
+          linear-gradient(180deg, #0e0e10 0%, #08080a 100%);
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(
+            45deg,
+            rgba(255, 255, 255, 0.03) 25%,
+            transparent 25%
+          ),
+          linear-gradient(
+            -45deg,
+            rgba(255, 255, 255, 0.03) 25%,
+            transparent 25%
+          );
+        background-size: 60px 60px;
+        opacity: 0.4;
+        pointer-events: none;
+      }
+      .gold-btn {
+        background: linear-gradient(180deg, var(--gold-soft), var(--gold));
+        color: #1a1a1a;
+        font-weight: 600;
+        border: none;
+        padding: 14px 28px;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.6);
+        transition:
+          transform 0.15s ease,
+          box-shadow 0.15s ease;
+        cursor: pointer;
+      }
+      .gold-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 40px -12px rgba(212, 175, 55, 0.7);
+      }
+      .ghost-btn {
+        background: transparent;
+        color: #f5f5f7;
+        border: 1px solid var(--line);
+        padding: 14px 28px;
+        border-radius: 10px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.15s ease;
+      }
+      .ghost-btn:hover {
+        border-color: var(--gold);
+        color: var(--gold);
+      }
+
+      .feature-card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 28px;
+        transition:
+          transform 0.2s ease,
+          border-color 0.2s ease;
+        display: block;
+        color: inherit;
+        text-decoration: none;
+      }
+      .feature-card:hover {
+        transform: translateY(-4px);
+        border-color: var(--gold);
+      }
+      .feature-icon {
+        color: var(--gold);
+      }
+
+      .setup-card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 40px;
+        max-width: 460px;
+        width: 100%;
+        margin: 0 auto;
+        box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.6);
+      }
+      .input-field {
+        background: var(--surface-2);
+        border: 1px solid var(--line);
+        color: #f5f5f7;
+        padding: 14px 16px;
+        border-radius: 10px;
+        width: 100%;
+        font-size: 15px;
+        outline: none;
+        transition: border-color 0.15s ease;
+      }
+      .input-field:focus {
+        border-color: var(--gold);
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .fade-up {
+        animation: fadeUp 0.7s ease both;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="nav">
+      <div
+        class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <div class="text-2xl font-bold display brand">♟ ChessMate</div>
+        <button id="nav-toggle" class="md:hidden text-2xl">
+          <i class="fa fa-bars"></i>
         </button>
+      </div>
     </header>
 
-
     <main id="homepage-content">
-        <section class="relative h-screen">
-            <img src="../public/img/chessboard.png" alt="Chessboard" class="absolute inset-0 w-full h-full object-cover">
-            <div class="absolute inset-0 bg-black/60 flex justify-center items-center text-white p-4">
-                <div class="text-center animate-fadeIn">
-                    <h2 class="text-5xl mb-4 font-extrabold">Welcome to Chess World</h2>
-                    <p class="mb-6 text-lg text-gray-300">Play, learn, and improve your strategy.</p>
-                    <button id="gameButton" class="bg-blue-800 hover:bg-blue-700 text-white py-3 px-6 rounded-lg text-lg shadow-lg transition">
-                        Start Playing
-                    </button>
-                </div>
-            </div>
-        </section>
+      <section class="hero">
+        <div class="relative z-10 text-center px-6 fade-up max-w-3xl">
+          <p class="brand uppercase tracking-[0.3em] text-xs mb-4">
+            An elegant board awaits
+          </p>
+          <h1 class="display text-5xl md:text-7xl font-bold mb-6 leading-tight">
+            Welcome to<br /><span class="brand">Chess World</span>
+          </h1>
+          <p class="text-lg text-gray-300 mb-10 max-w-xl mx-auto">
+            Play, learn, and refine your strategy on a board crafted for
+            thinkers.
+          </p>
+          <button id="gameButton" class="gold-btn text-lg">
+            Start Playing →
+          </button>
+        </div>
+      </section>
 
-      
-        <section class="p-8 bg-white mt-6 rounded-lg shadow-md">
-            <h2 class="text-3xl mb-6 font-extrabold text-center">Features</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <a href="https://lichess.org/learn" target="_blank" class="bg-gray-100 p-6 rounded-lg shadow-md hover:scale-105 hover:shadow-lg transition duration-300">
-                    <i class="fa fa-graduation-cap text-3xl mb-3 text-blue-600"></i>
-                    <h3 class="mb-2 text-xl font-bold">Learn Chess Basics</h3>
-                    <p class="text-gray-600">Master fundamental moves and rules step by step.</p>
-                </a>
-                <a href="https://lichess.org/analysis" target="_blank" class="bg-gray-100 p-6 rounded-lg shadow-md hover:scale-105 hover:shadow-lg transition duration-300">
-                    <i class="fa fa-chart-line text-3xl mb-3 text-blue-600"></i>
-                    <h3 class="mb-2 text-xl font-bold">Analyze Your Games</h3>
-                    <p class="text-gray-600">Review your past games to identify strengths and mistakes.</p>
-                </a>
-                <a href="https://lichess.org/practice" target="_blank" class="bg-gray-100 p-6 rounded-lg shadow-md hover:scale-105 hover:shadow-lg transition duration-300">
-                    <i class="fa fa-chess-knight text-3xl mb-3 text-blue-600"></i>
-                    <h3 class="mb-2 text-xl font-bold">Explore Chess Techniques</h3>
-                    <p class="text-gray-600">Solve tactical puzzles to sharpen your strategic thinking.</p>
-                </a>
-                
-            </div>
-            
-        </section>
+      <section class="max-w-6xl mx-auto px-6 py-20">
+        <div class="text-center mb-12">
+          <h2 class="display text-4xl md:text-5xl font-bold mb-3">
+            Sharpen Your Game
+          </h2>
+          <p class="text-gray-400">Three doors. One path to mastery.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <a
+            href="https://lichess.org/learn"
+            target="_blank"
+            class="feature-card"
+          >
+            <i class="fa fa-graduation-cap text-3xl mb-4 feature-icon"></i>
+            <h3 class="text-xl font-bold mb-2">Learn the Basics</h3>
+            <p class="text-gray-400 text-sm">
+              Master fundamental moves and rules step by step.
+            </p>
+          </a>
+          <a
+            href="https://lichess.org/analysis"
+            target="_blank"
+            class="feature-card"
+          >
+            <i class="fa fa-chart-line text-3xl mb-4 feature-icon"></i>
+            <h3 class="text-xl font-bold mb-2">Analyze Your Games</h3>
+            <p class="text-gray-400 text-sm">
+              Review your past games to find strengths and mistakes.
+            </p>
+          </a>
+          <a
+            href="https://lichess.org/practice"
+            target="_blank"
+            class="feature-card"
+          >
+            <i class="fa fa-chess-knight text-3xl mb-4 feature-icon"></i>
+            <h3 class="text-xl font-bold mb-2">Explore Techniques</h3>
+            <p class="text-gray-400 text-sm">
+              Solve tactical puzzles to sharpen strategic thinking.
+            </p>
+          </a>
+        </div>
+      </section>
     </main>
 
+    <section
+      id="game-setup"
+      class="hidden min-h-screen flex items-center justify-center py-20 px-6"
+    >
+      <div class="setup-card fade-up">
+        <p class="brand uppercase tracking-[0.3em] text-xs mb-3 text-center">
+          Match Lobby
+        </p>
+        <h2 class="display text-3xl font-bold mb-2 text-center">
+          Enter the Arena
+        </h2>
+        <p class="text-gray-400 text-sm text-center mb-8">
+          Create a new match or join one with a code.
+        </p>
 
-    <section id="game-setup" class="hidden bg-[#1f1f1f] text-white text-center pt-12 min-h-screen">
+        <input
+          type="text"
+          id="codeInput"
+          placeholder="Enter game code"
+          class="input-field mb-6"
+        />
 
-       
-        <input type="text" id="codeInput" placeholder="Enter the code here"
-            class="px-4 py-2 mb-8 border-2 border-gray-600 rounded-md w-52 bg-black text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-        <br>
-        <button id="createGame" class="px-6 py-2 mx-2 bg-black text-white border-2 border-white rounded-md shadow-lg transition hover:shadow-none">
-            Create game
-        </button>
-        <button id="joinGame" class="px-6 py-2 mx-2 bg-black text-white border-2 border-white rounded-md shadow-lg transition hover:shadow-none">
-            Join game
-        </button>
-        <div id="errorMessage" class="text-red-500 mt-8"></div>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <button id="createGame" class="gold-btn flex-1">Create game</button>
+          <button id="joinGame" class="ghost-btn flex-1">Join game</button>
+        </div>
+        <div
+          id="errorMessage"
+          class="text-red-400 text-sm mt-5 text-center"
+        ></div>
+      </div>
     </section>
 
-   
-    <footer class="bg-blue-900 text-white text-center py-3 mt-6 shadow-md">
-        <p>&copy; 2025 Chess Application | All Rights Reserved</p>
+    <footer
+      class="border-t border-[#2a2a31] py-6 mt-6 text-center text-gray-500 text-sm"
+    >
+      <p>&copy; 2025 ChessMate · All Rights Reserved</p>
     </footer>
 
     <script>
-   
-        document.getElementById("nav-toggle").addEventListener("click", function () {
-            document.getElementById("mobile-nav").classList.toggle("hidden");
+      // Original JS — preserved as-is (mobile-nav guard added because element doesn't exist in this layout)
+      document
+        .getElementById("nav-toggle")
+        .addEventListener("click", function () {
+          const m = document.getElementById("mobile-nav");
+          if (m) m.classList.toggle("hidden");
         });
 
-        document.getElementById("gameButton").addEventListener("click", function () {
-            document.getElementById("homepage-content").classList.add("hidden");
-            document.getElementById("game-setup").classList.remove("hidden");
+      document
+        .getElementById("gameButton")
+        .addEventListener("click", function () {
+          document.getElementById("homepage-content").classList.add("hidden");
+          document.getElementById("game-setup").classList.remove("hidden");
         });
 
-    
-        function validateInput() {
-            const codeInput = document.getElementById("codeInput").value;
-            const errorMessage = document.getElementById("errorMessage");
+      function validateInput() {
+        const codeInput = document.getElementById("codeInput").value;
+        const errorMessage = document.getElementById("errorMessage");
 
-            if (!codeInput) {
-                errorMessage.textContent = "Please enter a game code";
-                return false;
-            } else {
-                errorMessage.textContent = "";
-                return true;
-            }
+        if (!codeInput) {
+          errorMessage.textContent = "Please enter a game code";
+          return false;
+        } else {
+          errorMessage.textContent = "";
+          return true;
         }
+      }
 
-        
-        document.getElementById("createGame").addEventListener("click", function () {
-            if (validateInput()) {
-                window.location.replace("/white?code=" + document.getElementById("codeInput").value);
-            }
+      document
+        .getElementById("createGame")
+        .addEventListener("click", function () {
+          if (validateInput()) {
+            window.location.replace(
+              "/white?code=" + document.getElementById("codeInput").value,
+            );
+          }
         });
 
-        document.getElementById("joinGame").addEventListener("click", function () {
-            if (validateInput()) {
-                window.location.replace("/black?code=" + document.getElementById("codeInput").value);
-            }
+      document
+        .getElementById("joinGame")
+        .addEventListener("click", function () {
+          if (validateInput()) {
+            window.location.replace(
+              "/black?code=" + document.getElementById("codeInput").value,
+            );
+          }
         });
     </script>
-
-</body>
-
+  </body>
 </html>
